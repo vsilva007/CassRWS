@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>ad.cass</groupId>
+  <artifactId>cass-ws</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>cass-ws</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <project.finalName>cass-rws</project.finalName>
+  </properties>
+
+   <dependencies>
+       <dependency>
+           <groupId>ad.cass</groupId>
+           <artifactId>cass-core</artifactId>
+           <version>0.0.1-SNAPSHOT</version>
+           <type>ejb-client</type>
+       </dependency>
+       <dependency>
+           <groupId>javax.ws.rs</groupId>
+           <artifactId>javax.ws.rs-api</artifactId>
+           <version>2.0.1</version>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>javax.servlet</groupId>
+           <artifactId>servlet-api</artifactId>
+           <version>2.5</version>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>javax.annotation</groupId>
+           <artifactId>javax.annotation-api</artifactId>
+           <version>1.2</version>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.jboss.ejb3</groupId>
+           <artifactId>jboss-ejb3-ext-api</artifactId>
+           <version>2.2.0.Final</version>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.jboss.resteasy</groupId>
+           <artifactId>resteasy-jaxrs</artifactId>
+           <version>3.0.11.Final</version>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.codehaus.jackson</groupId>
+           <artifactId>jackson-core-asl</artifactId>
+           <version>1.9.13</version>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.codehaus.jackson</groupId>
+           <artifactId>jackson-jaxrs</artifactId>
+           <version>1.9.13</version>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.codehaus.jackson</groupId>
+           <artifactId>jackson-mapper-asl</artifactId>
+           <version>1.9.13</version>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.jboss.resteasy</groupId>
+           <artifactId>resteasy-jackson-provider</artifactId>
+           <version>3.0.10.Final</version>
+           <scope>provided</scope>
+       </dependency>
+       <dependency>
+           <groupId>org.jboss.resteasy</groupId>
+           <artifactId>resteasy-jettison-provider</artifactId>
+           <version>3.0.11.Final</version>
+           <scope>provided</scope>
+       </dependency>
+   </dependencies>
+
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <warName>${project.finalName}</warName>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        
+        	<plugin>
+	            <groupId>org.wildfly.plugins</groupId>
+	            <artifactId>wildfly-maven-plugin</artifactId>
+	            <version>1.1.0.Alpha11</version>
+	            <executions>
+	                <execution>
+	                    <id>deploy-wilfly-dev</id>
+	                    <configuration>
+	                        <force>true</force>
+	                        <port>${jboss-as.deploy.port.local}</port>
+	                        <hostname>${jboss-as.deploy.hostname.local}</hostname>
+	                        <username>${jboss-as.deploy.user.local}</username>
+	                        <password>${jboss-as.deploy.pass.local}</password>
+	                        <filename>${project.finalName}.war</filename>
+	                    </configuration>
+	                    <phase>install</phase>
+	                    <goals>
+	                        <goal>deploy</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>
+  		</plugins>
+   </build>
+
+  
+</project>

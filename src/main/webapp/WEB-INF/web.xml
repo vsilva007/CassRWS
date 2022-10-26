@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         id="WebApp_ID" version="3.1">
+    <display-name>cass-rws</display-name>
+
+    <context-param>
+        <param-name>javax.ws.rs.Application</param-name>
+        <param-value>ad.cass.application.RWSApplication</param-value>
+    </context-param>
+    <context-param>
+        <param-name>resteasy.providers</param-name>
+        <param-value>ad.cass.providers.JacksonConfigurator</param-value>
+    </context-param>
+    <context-param>
+        <param-name>resteasy.role.based.security</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>Resteasy</servlet-name>
+        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Resteasy</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <description>The class instance which will be notified when the application context has been initialized and destroyed</description>
+        <listener-class>ad.cass.factory.RWSFactory</listener-class>
+    </listener>
+</web-app>
